@@ -1,6 +1,6 @@
 # \CosmosApi
 
-All URIs are relative to *http://localhost/secrets/v1*
+All URIs are relative to *https://example.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------

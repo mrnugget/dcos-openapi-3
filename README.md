@@ -26,7 +26,7 @@ import "./dcos"
 
 ## Documentation for API Endpoints
 
-All URIs are relative to *http://localhost/secrets/v1*
+All URIs are relative to *https://example.com*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
@@ -37,10 +37,10 @@ Class | Method | HTTP request | Description
 *CosmosApi* | [**PackageUninstall**](docs/CosmosApi.md#packageuninstall) | **Post** /package/uninstall | 
 *CosmosApi* | [**ServiceDescribe**](docs/CosmosApi.md#servicedescribe) | **Post** /cosmos/service/describe | 
 *CosmosApi* | [**ServiceUpdate**](docs/CosmosApi.md#serviceupdate) | **Post** /cosmos/service/update | 
-*SecretsApi* | [**CreateSecret**](docs/SecretsApi.md#createsecret) | **Put** /secret/{store}/{path-to-secret} | Create a secret in the store at the path.
-*SecretsApi* | [**DeleteSecret**](docs/SecretsApi.md#deletesecret) | **Delete** /secret/{store}/{path-to-secret} | Delete a secret.
-*SecretsApi* | [**GetSecret**](docs/SecretsApi.md#getsecret) | **Get** /secret/{store}/{path-to-secret} | Read or list a secret from the store by its path.
-*SecretsApi* | [**UpdateSecret**](docs/SecretsApi.md#updatesecret) | **Patch** /secret/{store}/{path-to-secret} | Update secret.
+*SecretsApi* | [**CreateSecret**](docs/SecretsApi.md#createsecret) | **Put** /secrets/v1/secret/{store}/{path-to-secret} | Create a secret in the store at the path.
+*SecretsApi* | [**DeleteSecret**](docs/SecretsApi.md#deletesecret) | **Delete** /secrets/v1/secret/{store}/{path-to-secret} | Delete a secret.
+*SecretsApi* | [**GetSecret**](docs/SecretsApi.md#getsecret) | **Get** /secrets/v1/secret/{store}/{path-to-secret} | Read or list a secret from the store by its path.
+*SecretsApi* | [**UpdateSecret**](docs/SecretsApi.md#updatesecret) | **Patch** /secrets/v1/secret/{store}/{path-to-secret} | Update secret.
 
 
 ## Documentation For Models

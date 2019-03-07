@@ -8,6 +8,11 @@ tags:
     description: DC/OS Secrets
   - name: cosmos
     description: DC/OS Cosmos Package Management
+servers:
+  - url: https://{cluster-url}/
+    variables:
+      cluster-url:
+        default: example.com
 paths:
   /package/repository/delete:
     post:
@@ -237,7 +242,7 @@ paths:
             application/vnd.dcos.service.update-response+json;charset=utf-8;version=v1:
               schema:
                 $ref: "#/components/schemas/error"
-  "/secret/{store}/{path-to-secret}":
+  /secrets/v1/secret/{store}/{path-to-secret}:
     get:
       tags:
         - secrets
@@ -914,6 +919,3 @@ components:
       required:
         - packageName
       type: object
-
-servers:
-  - url: /secrets/v1
