@@ -1,0 +1,919 @@
+openapi: 3.0.2
+info:
+  title: DC/OS
+  description: DC/OS API
+  version: 1.0.0
+tags:
+  - name: secrets
+    description: DC/OS Secrets
+  - name: cosmos
+    description: DC/OS Cosmos Package Management
+paths:
+  /package/repository/delete:
+    post:
+      tags:
+        - cosmos
+      operationId: package-repository-delete
+      description: Deletes a package repository (for example Universe) from DC/OS.
+      requestBody:
+        content:
+          application/vnd.dcos.package.repository.delete-request+json;charset=utf-8;version=v1:
+            schema:
+              $ref: "#/components/schemas/packageDeleteRepoRequest"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/vnd.dcos.package.repository.delete-response+json;charset=utf-8;version=v1:
+              schema:
+                $ref: "#/components/schemas/packageDeleteRepoResponse"
+        "400":
+          description: ""
+          content:
+            application/vnd.dcos.package.repository.delete-response+json;charset=utf-8;version=v1:
+              schema:
+                $ref: "#/components/schemas/error"
+        "404":
+          description: ""
+          content:
+            application/vnd.dcos.package.repository.delete-response+json;charset=utf-8;version=v1:
+              schema:
+                $ref: "#/components/schemas/error"
+  /package/repository/add:
+    post:
+      tags:
+        - cosmos
+      operationId: package-repository-add
+      description: >
+        Adds a package repository (for example Universe) for use by DC/OS. To
+        add a package
+
+        repository to the beginning of the list set the index to zero (0). To add a package
+
+        repository to the end of the list do not specify an index.
+      requestBody:
+        content:
+          application/vnd.dcos.package.repository.add-request+json;charset=utf-8;version=v1:
+            schema:
+              $ref: "#/components/schemas/packageAddRepoRequest"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/vnd.dcos.package.repository.add-response+json;charset=utf-8;version=v1:
+              schema:
+                $ref: "#/components/schemas/packageAddRepoResponse"
+        "400":
+          description: ""
+          content:
+            application/vnd.dcos.package.repository.add-response+json;charset=utf-8;version=v1:
+              schema:
+                $ref: "#/components/schemas/error"
+        "409":
+          description: ""
+          content:
+            application/vnd.dcos.package.repository.add-response+json;charset=utf-8;version=v1:
+              schema:
+                $ref: "#/components/schemas/error"
+  /cosmos/service/describe:
+    post:
+      description: Describes a DC/OS Service
+      tags:
+        - cosmos
+      operationId: service-describe
+      requestBody:
+        content:
+          application/vnd.dcos.service.describe-request+json;charset=utf-8;version=v1:
+            schema:
+              $ref: "#/components/schemas/serviceDescribeRequest"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/vnd.dcos.service.describe-response+json;charset=utf-8;version=v1:
+              schema:
+                $ref: "#/components/schemas/serviceDescribeResponse"
+        "400":
+          description: ""
+          content:
+            application/vnd.dcos.service.describe-response+json;charset=utf-8;version=v1:
+              schema:
+                $ref: "#/components/schemas/error"
+  /package/describe:
+    post:
+      description: Show information about the package, including the required resources and
+        configuration to start the service, and command line extensions that are
+        included with the package.
+      tags:
+        - cosmos
+      operationId: package-describe
+      requestBody:
+        content:
+          application/vnd.dcos.package.describe-request+json;charset=utf-8;version=v1:
+            schema:
+              $ref: "#/components/schemas/packageDescribeRequest"
+      responses:
+        "200":
+          description: ""
+          content:
+            application/vnd.dcos.package.describe-response+json;charset=utf-8;version=v3:
+              schema:
+                $ref: "#/components/schemas/v3PackageDescribeResponse"
+        "400":
+          description: ""
+          content:
+            application/vnd.dcos.package.describe-response+json;charset=utf-8;version=v3:
+              schema:
+                $ref: "#/components/schemas/error"
+  /package/uninstall:
+    post:
+      tags:
+        - cosmos
+      operationId: package-uninstall
+      parameters:
+        - name: Accept
+          in: header
+          required: false
+          schema:
+            type: string
+            enum:
+              - application/vnd.dcos.package.uninstall-response+json;charset=utf-8;version=v1
+      requestBody:
+        content:
+          application/vnd.dcos.package.uninstall-request+json;charset=utf-8;version=v1:
+            schema:
+              $ref: "#/components/schemas/uninstallRequest"
+        required: true
+      responses:
+        "200":
+          description: ""
+          content:
+            application/vnd.dcos.package.uninstall-response+json;charset=utf-8;version=v1:
+              schema:
+                $ref: "#/components/schemas/uninstallResponse"
+        "400":
+          description: ""
+          content:
+            application/vnd.dcos.package.uninstall-response+json;charset=utf-8;version=v1:
+              schema:
+                $ref: "#/components/schemas/error"
+        "404":
+          description: ""
+          content:
+            application/vnd.dcos.package.uninstall-response+json;charset=utf-8;version=v1:
+              schema:
+                $ref: "#/components/schemas/error"
+        "409":
+          description: ""
+          content:
+            application/vnd.dcos.package.uninstall-response+json;charset=utf-8;version=v1:
+              schema:
+                $ref: "#/components/schemas/error"
+  /package/install:
+    post:
+      description: Runs a service from a Universe package.
+      tags:
+        - cosmos
+      operationId: package-install
+      requestBody:
+        content:
+          application/vnd.dcos.package.install-request+json;charset=utf-8;version=v1:
+            schema:
+              $ref: "#/components/schemas/installRequest"
+        required: true
+      responses:
+        "200":
+          description: ""
+          content:
+            application/vnd.dcos.package.install-response+json;charset=utf-8;version=v1:
+              schema:
+                $ref: "#/components/schemas/installResponse"
+        "400":
+          description: ""
+          content:
+            application/vnd.dcos.package.install-response+json;charset=utf-8;version=v1:
+              schema:
+                $ref: "#/components/schemas/error"
+        "409":
+          description: ""
+          content:
+            application/vnd.dcos.package.install-response+json;charset=utf-8;version=v1:
+              schema:
+                $ref: "#/components/schemas/error"
+  /cosmos/service/update:
+    post:
+      description: Runs a service update.
+      tags:
+        - cosmos
+      operationId: service-update
+      requestBody:
+        content:
+          application/vnd.dcos.service.update-request+json;charset=utf-8;version=v1:
+            schema:
+              $ref: "#/components/schemas/serviceUpdateRequest"
+        required: true
+      responses:
+        "200":
+          description: ""
+          content:
+            application/vnd.dcos.service.update-response+json;charset=utf-8;version=v1:
+              schema:
+                $ref: "#/components/schemas/serviceUpdateResponse"
+        "400":
+          description: ""
+          content:
+            application/vnd.dcos.service.update-response+json;charset=utf-8;version=v1:
+              schema:
+                $ref: "#/components/schemas/error"
+        "404":
+          description: ""
+          content:
+            application/vnd.dcos.service.update-response+json;charset=utf-8;version=v1:
+              schema:
+                $ref: "#/components/schemas/error"
+        "409":
+          description: ""
+          content:
+            application/vnd.dcos.service.update-response+json;charset=utf-8;version=v1:
+              schema:
+                $ref: "#/components/schemas/error"
+  "/secret/{store}/{path-to-secret}":
+    get:
+      tags:
+        - secrets
+      operationId: get-secret
+      summary: Read or list a secret from the store by its path.
+      description: Read or list a secret from the store by its path.
+      parameters:
+        - name: store
+          description: The backend store from which to get the secret.
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: list
+          in: query
+          description: |
+            If set to true, list only secret keys.
+          schema:
+            type: string
+        - name: path-to-secret
+          description: The path to store the secret in.
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Response body contains secret authorized content.
+          content:
+            "*/*":
+              schema:
+                $ref: "#/components/schemas/Secret"
+        "400":
+          description: Unsupported Accept header.
+        "403":
+          description: Forbidden.
+        "404":
+          description: Secret not found.
+    put:
+      tags:
+        - secrets
+      operationId: create-secret
+      summary: Create a secret in the store at the path.
+      description: Create a secret in the store at the path.
+      parameters:
+        - name: store
+          description: The backend to store the secret in.
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: path-to-secret
+          description: The path to store the secret in.
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        $ref: "#/components/requestBodies/Secret"
+      responses:
+        "201":
+          description: Secret created.
+        "400":
+          description: Unsupported Content-Type header.
+        "403":
+          description: Forbidden.
+        "409":
+          description: Secret already exists.
+    patch:
+      tags:
+        - secrets
+      operationId: update-secret
+      summary: Update secret.
+      description: Update existing secret in the specified store.
+      parameters:
+        - name: store
+          description: The backend to store the secret in.
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: path-to-secret
+          description: The path for the secret to update.
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        $ref: "#/components/requestBodies/Secret"
+      responses:
+        "204":
+          description: Secret updated.
+        "403":
+          description: Forbidden.
+        "404":
+          description: Secret not found.
+    delete:
+      tags:
+        - secrets
+      operationId: delete-secret
+      summary: Delete a secret.
+      description: Delete a secret.
+      parameters:
+        - name: store
+          description: The backend to delete the secret from.
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: path-to-secret
+          description: The path to the secret to delete.
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Success.
+        "403":
+          description: Forbidden.
+        "404":
+          description: Secret not found.
+components:
+  requestBodies:
+    Secret:
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Secret"
+      description: Secret value.
+      required: true
+  securitySchemes:
+    token:
+      type: apiKey
+      in: header
+      name: Authorization
+  schemas:
+    Secret:
+      type: object
+      properties:
+        value:
+          type: string
+      additionalProperties: false
+    algo:
+      enum:
+        - sha256
+      type: string
+    assets:
+      additionalProperties: false
+      properties:
+        container:
+          additionalProperties: false
+          properties:
+            docker:
+              $ref: "#/components/schemas/docker"
+          type: object
+        uris:
+          $ref: "#/components/schemas/uris"
+      type: object
+    base64String:
+      pattern: ^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{4}|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)$
+      type: string
+    binaries:
+      additionalProperties: false
+      minProperties: 1
+      properties:
+        darwin:
+          $ref: "#/components/schemas/os"
+        linux:
+          $ref: "#/components/schemas/os"
+        windows:
+          $ref: "#/components/schemas/os"
+      type: object
+    cli:
+      additionalProperties: false
+      properties:
+        binaries:
+          $ref: "#/components/schemas/binaries"
+      required:
+        - binaries
+      type: object
+    cliInfo:
+      additionalProperties: false
+      properties:
+        contentHash:
+          items:
+            $ref: "#/components/schemas/hash"
+          minItems: 1
+          type: array
+        kind:
+          enum:
+            - executable
+            - zip
+          type: string
+        url:
+          $ref: "#/components/schemas/url"
+      required:
+        - contentHash
+        - kind
+        - url
+      type: object
+    command:
+      additionalProperties: false
+      properties:
+        pip:
+          description: "[Deprecated v3.x] An array of strings representing of the
+            requirements file to use for installing the subcommand for Pip. Each
+            item is interpreted as a line in the requirements file."
+          items:
+            type: string
+          type: array
+      required:
+        - pip
+      type: object
+    config:
+      additionalProperties: true
+      type: object
+    packageDescribeRequest:
+      additionalProperties: false
+      properties:
+        packageName:
+          type: string
+        packageVersion:
+          type: string
+      required:
+        - packageName
+      type: object
+    docker:
+      additionalProperties:
+        type: string
+      type: object
+    error:
+      additionalProperties: false
+      properties:
+        type:
+          type: string
+        message:
+          type: string
+        data:
+          type: object
+      required:
+        - type
+        - message
+    hash:
+      additionalProperties: false
+      properties:
+        algo:
+          $ref: "#/components/schemas/algo"
+        value:
+          type: string
+      required:
+        - algo
+        - value
+      type: object
+    images:
+      additionalProperties: false
+      properties:
+        icon-large:
+          description: PNG icon URL, preferably 256 by 256 pixels.
+          type: string
+        icon-medium:
+          description: PNG icon URL, preferably 128 by 128 pixels.
+          type: string
+        icon-small:
+          description: PNG icon URL, preferably 48 by 48 pixels.
+          type: string
+        screenshots:
+          items:
+            description: PNG screen URL, preferably 1024 by 1024 pixels.
+            type: string
+          type: array
+      type: object
+    installRequest:
+      additionalProperties: false
+      properties:
+        appId:
+          type: string
+        options:
+          additionalProperties: true
+          type: object
+        packageName:
+          type: string
+        packageVersion:
+          type: string
+      required:
+        - packageName
+      type: object
+    installResponse:
+      additionalProperties: false
+      properties:
+        appId:
+          type: string
+        cli:
+          $ref: "#/components/schemas/cli"
+        packageName:
+          type: string
+        packageVersion:
+          type: string
+        postInstallNotes:
+          type: string
+      required:
+        - packageName
+        - packageVersion
+      type: object
+    serviceUpdateRequest:
+      additionalProperties: false
+      properties:
+        appId:
+          type: string
+        options:
+          additionalProperties: true
+          type: object
+        packageName:
+          type: string
+        packageVersion:
+          type: string
+        replace:
+          description: If true any stored configuration will be ignored when producing the
+            updated service configuration.
+          type: boolean
+      required:
+        - appId
+        - replace
+      type: object
+    serviceUpdateResponse:
+      additionalProperties: false
+      properties:
+        marathonDeploymentId:
+          type: string
+        package:
+          $ref: "#/components/schemas/v50PackageDefinition"
+        resolvedOptions:
+          additionalProperties: true
+          description: The result of merging the default package options with the user
+            supplied options
+          type: object
+      required:
+        - marathonDeploymentId
+        - package
+        - resolvedOptions
+      type: object
+    uninstallRequest:
+      additionalProperties: false
+      properties:
+        appId:
+          type: string
+        packageName:
+          type: string
+        all:
+          type: boolean
+      required:
+        - packageName
+      type: object
+    uninstallResponse:
+      additionalProperties: false
+      properties:
+        appId:
+          type: string
+        packageName:
+          type: string
+        packageVersion:
+          type: string
+        postUninstallNotes:
+          type: string
+      required:
+        - packageName
+        - appId
+      type: object
+    licence:
+      additionalProperties: false
+      properties:
+        name:
+          description: The name of the license. For example one of [Apache License Version
+            2.0 | MIT License | BSD License | Proprietary]
+          type: string
+        url:
+          $ref: "#/components/schemas/url"
+      required:
+        - name
+        - url
+      type: object
+    licences:
+      items:
+        $ref: "#/components/schemas/licence"
+      type: array
+    marathon:
+      additionalProperties: false
+      properties:
+        v2AppMustacheTemplate:
+          $ref: "#/components/schemas/base64String"
+      required:
+        - v2AppMustacheTemplate
+      type: object
+    os:
+      additionalProperties: false
+      properties:
+        x86-64:
+          $ref: "#/components/schemas/cliInfo"
+      required:
+        - x86-64
+      type: object
+    packageDetails:
+      additionalProperties: false
+      properties:
+        description:
+          type: string
+        framework:
+          default: false
+          description: True if this package installs a new Mesos framework.
+          type: boolean
+        licenses:
+          $ref: "#/components/schemas/licences"
+        maintainer:
+          type: string
+        name:
+          type: string
+        packagingVersion:
+          type: string
+        postInstallNotes:
+          description: Post installation notes that would be useful to the user of this
+            package.
+          type: string
+        postUninstallNotes:
+          description: Post uninstallation notes that would be useful to the user of this
+            package.
+          type: string
+        preInstallNotes:
+          description: Pre installation notes that would be useful to the user of this
+            package.
+          type: string
+        releaseVersion:
+          description: Corresponds to the revision index from the universe directory
+            structure
+          minimum: 0
+          type: integer
+        scm:
+          type: string
+        selected:
+          default: false
+          description: Flag indicating if the package is selected in search results
+          type: boolean
+        tags:
+          items:
+            pattern: ^[^\s]+$
+            type: string
+          type: array
+        version:
+          type: string
+        website:
+          type: string
+      required:
+        - description
+        - maintainer
+        - name
+        - packagingVersion
+        - tags
+        - version
+      type: object
+    serviceDescribeRequest:
+      additionalProperties: false
+      properties:
+        appId:
+          type: string
+        managerId:
+          type: string
+      required:
+        - appId
+        - managerId
+      type: object
+    packageDeleteRepoRequest:
+      additionalProperties: false
+      properties:
+        name:
+          type: string
+        uri:
+          $ref: "#/components/schemas/url"
+      type: object
+    packageDeleteRepoResponse:
+      additionalProperties: false
+      properties:
+        repositories:
+          type: array
+          items:
+            $ref: "#/components/schemas/pkgRepo"
+      required:
+        - repositories
+      type: object
+    packageAddRepoRequest:
+      additionalProperties: false
+      properties:
+        name:
+          type: string
+        uri:
+          $ref: "#/components/schemas/url"
+        index:
+          type: integer
+          minimum: 0
+      required:
+        - name
+        - uri
+      type: object
+    packageAddRepoResponse:
+      additionalProperties: false
+      properties:
+        repositories:
+          type: array
+          items:
+            $ref: "#/components/schemas/pkgRepo"
+      required:
+        - repositories
+      type: object
+    serviceDescribeResponse:
+      additionalProperties: false
+      properties:
+        downgradesTo:
+          items:
+            type: string
+          type: array
+        package:
+          $ref: "#/components/schemas/v50PackageDefinition"
+        resolvedOptions:
+          additionalProperties: true
+          description: The result of merging the default package options with the user
+            supplied options
+          type: object
+        upgradesTo:
+          items:
+            type: string
+          type: array
+        userProvidedOptions:
+          additionalProperties: true
+          description: The options the user provided to run the service
+          type: object
+      required:
+        - downgradesTo
+        - package
+        - upgradesTo
+      type: object
+    uris:
+      additionalProperties:
+        type: string
+      type: object
+    url:
+      format: uri
+      pattern: ^https?://
+      type: string
+    pkgRepo:
+      type: object
+      additionalProperties: false
+      properties:
+        name:
+          type: string
+        uri:
+          $ref: "#/components/schemas/url"
+      required:
+        - name
+        - uri
+    v30Resource:
+      additionalProperties: false
+      properties:
+        assets:
+          $ref: "#/components/schemas/assets"
+        cli:
+          $ref: "#/components/schemas/cli"
+        images:
+          $ref: "#/components/schemas/images"
+      type: object
+    v3PackageDescribeResponse:
+      additionalProperties: false
+      properties:
+        package:
+          $ref: "#/components/schemas/v50PackageDefinition"
+      required:
+        - package
+      type: object
+    v50PackageDefinition:
+      additionalProperties: false
+      properties:
+        command:
+          $ref: "#/components/schemas/command"
+        config:
+          $ref: "#/components/schemas/config"
+        description:
+          type: string
+        downgradesTo:
+          description: List of versions that this package can downgrade to. If the property
+            is a list containing the string '*', this package can downgrade to
+            any version. If the property is not set or the empty list, this
+            package cannot downgrade.
+          items:
+            type: string
+          type: array
+        framework:
+          default: false
+          description: True if this package installs a new Mesos framework.
+          type: boolean
+        licenses:
+          $ref: "#/components/schemas/licences"
+        maintainer:
+          type: string
+        marathon:
+          $ref: "#/components/schemas/marathon"
+        minDcosReleaseVersion:
+          description: The minimum DC/OS Release Version the package can run on.
+          pattern: ^(?:0|[1-9][0-9]*)(?:\.(?:0|[1-9][0-9]*))*$
+          type: string
+        name:
+          type: string
+        packagingVersion:
+          enum:
+            - "5.0"
+          type: string
+        postInstallNotes:
+          description: Post installation notes that would be useful to the user of this
+            package.
+          type: string
+        postUninstallNotes:
+          description: Post uninstallation notes that would be useful to the user of this
+            package.
+          type: string
+        preInstallNotes:
+          description: Pre installation notes that would be useful to the user of this
+            package.
+          type: string
+        releaseVersion:
+          description: Corresponds to the revision index from the universe directory
+            structure
+          minimum: 0
+          type: integer
+        resource:
+          $ref: "#/components/schemas/v30Resource"
+        scm:
+          type: string
+        selected:
+          default: false
+          description: Flag indicating if the package is selected in search results
+          type: boolean
+        tags:
+          items:
+            pattern: ^[^\s]+$
+            type: string
+          type: array
+        upgradesFrom:
+          description: List of versions that can upgrade to this package. If the property
+            is a list containing the string '*', any version can upgrade to this
+            package. If the property is not set or the empty list, no version
+            can upgrade to this package.
+          items:
+            type: string
+          type: array
+        version:
+          pattern: ^[-a-zA-Z0-9.]+$
+          type: string
+        website:
+          type: string
+        manager:
+          $ref: "#/components/schemas/manager"
+      required:
+        - description
+        - maintainer
+        - name
+        - packagingVersion
+        - releaseVersion
+        - tags
+        - version
+      type: object
+    manager:
+      additionalProperties: false
+      properties:
+        packageName:
+          type: string
+        minPackageVersion:
+          type: string
+      required:
+        - packageName
+      type: object
+
+servers:
+  - url: /secrets/v1
